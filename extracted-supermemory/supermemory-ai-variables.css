@@ -1,0 +1,213 @@
+:root {
+  /* Colors — Primary */
+  --color-primary: #f5f9ff;
+  --color-secondary: #0562ef;
+  --color-accent: #e4effd;
+
+  /* Colors — Neutrals */
+  --color-neutral-50: #888e94;
+  --color-neutral-100: #000000;
+  --color-neutral-200: #6b7480;
+  --color-neutral-300: #3a4554;
+  --color-neutral-400: #13191f;
+
+  /* Colors — Backgrounds */
+  --color-bg: #f5f9ff;
+  --color-bg-1: #e9f2ff;
+  --color-bg-2: #0562ef;
+  --color-bg-3: #001745;
+  --color-bg-4: #fafafa;
+  --color-bg-5: #0b1015;
+  --color-bg-6: #e4effd;
+  --color-bg-7: #07224f;
+  --color-bg-8: #e8edf3;
+  --color-bg-9: #f4f8ff;
+  --color-bg-10: #eaf2ff;
+  --color-bg-11: #0263ef;
+
+  /* Colors — Text */
+  --color-text: #000000;
+  --color-text-1: #0b1015;
+  --color-text-2: #888e94;
+  --color-text-3: #ffffff;
+  --color-text-4: #0562ef;
+
+  /* Typography — Families */
+  --font-sans: 'DM Sans', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', sans-serif;
+  --font-body: 'ui-sans-serif', sans-serif;
+
+  /* Typography — Scale */
+  --font-size-193.939: 193.939px;
+  --font-size-81.92: 81.92px;
+  --font-size-79.36: 79.36px;
+  --font-size-72: 72px;
+  --font-size-58.88: 58.88px;
+  --font-size-56: 56px;
+  --font-size-52: 52px;
+  --font-size-47: 47px;
+  --font-size-45.056: 45.056px;
+  --font-size-44: 44px;
+  --font-size-40: 40px;
+  --font-size-38: 38px;
+
+  /* Spacing */
+  --spacing-1: 1px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-40: 40px;
+  --spacing-44: 44px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-75: 75px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-108: 108px;
+  --spacing-121: 121px;
+  --spacing-140: 140px;
+  --spacing-143: 143px;
+  --spacing-177: 177px;
+  --spacing-183: 183px;
+
+  /* Border Radius */
+  --radius-xs: 1px;
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-xl: 19px;
+  --radius-full: 50px;
+  --radius-full: 999px;
+
+  /* Box Shadows */
+  --shadow-sm: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+  --shadow-sm: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
+  --shadow-sm: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(11, 16, 21, 0.03) 0px 1px 0px 0px;
+  --shadow-sm: rgb(250, 250, 250) 0px 0px 0px 1.5px, rgba(11, 16, 21, 0.1) 0px 0px 0px 2.5px;
+  --shadow-sm: color(srgb 0.313726 0.25098 0.815686 / 0.4) 0px 0px 0px 1px;
+  --shadow-sm: rgba(5, 98, 239, 0.1) 0px 0px 0px 4px;
+  --shadow-sm: rgba(5, 98, 239, 0.1) 0px 0px 0px 4px, rgba(5, 98, 239, 0.4) 0px 4px 10px -3px;
+  --shadow-sm: rgba(255, 255, 255, 0.12) 0px 0px 0px 1px inset;
+  --shadow-sm: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.18) 0px 1px 0px 0px inset, rgba(5, 16, 40, 0.18) 0px 2px 8px 0px;
+  --shadow-xs: color(srgb 0.0431373 0.0627451 0.0823529 / 0.06) 0px 1px 0px 0px, color(srgb 0.0431373 0.0627451 0.0823529 / 0.18) 0px 6px 16px -10px;
+  --shadow-xs: rgba(5, 98, 239, 0.28) 1px 0px 0px 0px inset, rgba(5, 98, 239, 0.28) -1px 0px 0px 0px inset;
+  --shadow-xs: rgba(255, 255, 255, 0.4) 0px 1px 0px 0px;
+  --shadow-md: rgba(5, 98, 239, 0.45) 0px 4px 10px -3px;
+  --shadow-lg: rgba(118, 193, 255, 0.6) 0px 2px 30px -2px inset, rgba(0, 0, 0, 0.2) 0px 9px 17px 5px;
+  --shadow-xl: rgba(11, 16, 21, 0.28) 0px 32px 64px -24px, rgba(11, 16, 21, 0.1) 0px 8px 16px -4px, rgba(11, 16, 21, 0.04) 0px 0px 0px 1px;
+
+  /* Original Site Variables */
+  /* — colors — */
+  --cf-tick-color: #1d4ed88c;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --color-grid: #0b101529;
+  --color-paper-blue: #f6f8fc;
+  --color-mem-panel-border: #e4ecf9;
+  --color-border-light: #4794e04d;
+  --color-bg-alt: #f4f8ff;
+  --color-text-dim: #888e94;
+  --color-slate-800: oklch(27.9% .041 260.031);
+  --color-bg: #f5f9ff;
+  --color-slate-500: oklch(55.4% .046 257.417);
+  --tw-inset-ring-shadow: 0 0 #0000;
+  --color-blue-hover: #3782f2;
+  --color-mem-panel: #fbfcfe;
+  --color-blue-tint: #eaf2ff;
+  --tw-ring-offset-color: #fff;
+  --color-white: #fff;
+  --color-border-dashed: #0b101529;
+  --color-blue-400: oklch(70.7% .165 254.624);
+  --color-slate-400: oklch(70.4% .04 256.788);
+  --tw-border-style: solid;
+  --color-mem-strip: #fafafa;
+  --color-text: #0b1015;
+  --color-border-strong: #9bc1ea;
+  --tw-ring-offset-width: 0px;
+  --color-border: #c5dbf2;
+  --color-card-blue: #ddebff;
+  --color-text-muted: #0b101599;
+  --color-blue: #0562ef;
+  --color-paper: #fafafa;
+  --color-blue-light: #1e78ff;
+  /* — spacing — */
+  --spacing: .25rem;
+  /* — typography — */
+  --text-2xl: 1.5rem;
+  --leading-relaxed: 1.625;
+  --leading-snug: 1.375;
+  --text-lg: 1.125rem;
+  --font-body: "DM Sans", sans-serif;
+  --text-5xl--line-height: 1;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-base--line-height: 1.5;
+  --font-mono: "DM Mono", monospace;
+  --tracking-wider: .05em;
+  --font-weight-semibold: 600;
+  --text-sm: .875rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --leading-tight: 1.25;
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --text-4xl: 2.25rem;
+  --font-weight-bold: 700;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-3xl--line-height: 1.2;
+  --text-5xl: 3rem;
+  --text-3xl: 1.875rem;
+  --text-xs--line-height: calc(1 / .75);
+  --tracking-widest: .1em;
+  --text-xs: .75rem;
+  --font-weight-light: 300;
+  --font-weight-medium: 500;
+  --default-font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-weight-normal: 400;
+  --text-4xl--line-height: calc(2.5 / 2.25);
+  --font-heading: "Space Grotesk", sans-serif;
+  --text-base: 1rem;
+  --default-mono-font-family: "DM Mono", monospace;
+  --tracking-tight: -.025em;
+  /* — shadows — */
+  --tw-inset-shadow-alpha: 100%;
+  --tw-drop-shadow-alpha: 100%;
+  --tw-inset-shadow: 0 0 #0000;
+  --tw-shadow-alpha: 100%;
+  --tw-shadow: 0 0 #0000;
+  /* — radii — */
+  --radius-3xl: 1.5rem;
+  --radius-sm: .25rem;
+  --radius-xl: .75rem;
+  --radius-2xl: 1rem;
+  --radius-md: .375rem;
+  --radius-lg: .5rem;
+  /* — other — */
+  --cf-stroke: #0b10152e;
+  --ease-out-strong: cubic-bezier(.23, 1, .32, 1);
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --tw-outline-style: solid;
+  --container-5xl: 64rem;
+  --tw-translate-z: 0;
+  --tw-gradient-via: rgba(0, 0, 0, 0);
+  --container-3xl: 48rem;
+  --tw-translate-y: 0;
+  --ease-out: cubic-bezier(0, 0, .2, 1);
+  --tw-divide-x-reverse: 0;
+  --tw-gradient-from: rgba(0, 0, 0, 0);
+  --tw-gradient-to: rgba(0, 0, 0, 0);
+  --tw-divide-y-reverse: 0;
+  --tw-translate-x: 0;
+  --tw-gradient-via-position: 50%;
+  --nav-height: 71px;
+  --tw-gradient-to-position: 100%;
+  --default-transition-duration: .15s;
+  --container-xl: 36rem;
+  --tw-gradient-from-position: 0%;
+  --blur-sm: 8px;
+  /* — semantic — */
+  success: [object Object];
+  warning: [object Object];
+  error: [object Object];
+  info: [object Object];
+
+}

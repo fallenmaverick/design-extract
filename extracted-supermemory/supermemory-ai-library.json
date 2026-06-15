@@ -1,0 +1,22 @@
+{
+  "library": "bootstrap",
+  "confidence": 0.6,
+  "evidence": [
+    "bootstrap utility hits: 3"
+  ],
+  "alternates": [
+    {
+      "id": "tailwindcss",
+      "score": 0.3,
+      "evidence": [
+        "tailwind-like class density 62%"
+      ]
+    }
+  ],
+  "signals": {
+    "tailwindLike": 0.616,
+    "radixAttrCount": 0,
+    "classSampleSize": 479
+  },
+  "needsSmart": false
+}

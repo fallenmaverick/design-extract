@@ -1,0 +1,79 @@
+{
+  "materialLanguage": {
+    "label": "mixed",
+    "confidence": 0.45,
+    "signals": [
+      {
+        "label": "material-you",
+        "weight": 0.45,
+        "detail": "pill shapes + soft shadows"
+      },
+      {
+        "label": "skeuomorphic",
+        "weight": 0.35,
+        "detail": "heavy gradient usage"
+      }
+    ],
+    "metrics": {
+      "saturation": 0.589,
+      "shadowProfile": "soft",
+      "avgShadowBlur": 0,
+      "maxShadowBlur": 0,
+      "insetShadows": 0,
+      "avgRadius": 180.7,
+      "maxRadius": 999,
+      "hasPill": true,
+      "hasBackdropBlur": false,
+      "gradientCount": 8
+    },
+    "alternates": [
+      {
+        "label": "skeuomorphic",
+        "score": 0.35
+      }
+    ]
+  },
+  "imageryStyle": {
+    "label": "flat-illustration",
+    "confidence": 0.088,
+    "counts": {
+      "total": 68,
+      "svg": 33,
+      "icon": 30,
+      "hero": 0,
+      "screenshot": 0,
+      "photoLike": 0
+    },
+    "dominantAspect": "square-ish",
+    "radiusProfile": "rounded",
+    "alternates": [
+      {
+        "label": "photography",
+        "score": 0.15
+      }
+    ],
+    "signals": []
+  },
+  "backgroundPatterns": {
+    "labels": [
+      "plain"
+    ],
+    "counts": {
+      "noise": 1,
+      "dotGrid": 0,
+      "lineGrid": 0,
+      "meshCount": 0,
+      "svgPattern": 0
+    },
+    "gradientTotals": {
+      "radial": 7,
+      "linear": 10
+    },
+    "samples": [
+      {
+        "tag": "noise",
+        "value": "url(\"https://supermemory.ai/images/product-catalog/blue-noise.png\")"
+      }
+    ]
+  }
+}

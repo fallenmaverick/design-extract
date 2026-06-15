@@ -1,0 +1,386 @@
+{
+  "pageIntent": {
+    "type": "landing",
+    "confidence": 0.47,
+    "path": "/",
+    "title": "Supermemory",
+    "description": "The memory layer for AI agents. Context engineering platform powering enterprise APIs, developer plugins, and a personal app that remembers everything.",
+    "signals": [
+      {
+        "kind": "dom",
+        "type": "docs",
+        "weight": 0.7000000000000001,
+        "detail": "sidebar=true article=2000"
+      },
+      {
+        "kind": "dom",
+        "type": "blog-post",
+        "weight": 0.35,
+        "detail": "byline|min-read"
+      },
+      {
+        "kind": "dom",
+        "type": "legal",
+        "weight": 0.4
+      },
+      {
+        "kind": "url",
+        "type": "landing",
+        "weight": 0.45,
+        "detail": "root-path"
+      },
+      {
+        "kind": "shape",
+        "type": "landing",
+        "weight": 0.3,
+        "detail": "features+hero+footer"
+      }
+    ],
+    "alternates": [
+      {
+        "type": "docs",
+        "score": 0.7
+      },
+      {
+        "type": "legal",
+        "score": 0.4
+      },
+      {
+        "type": "blog-post",
+        "score": 0.35
+      }
+    ],
+    "needsSmart": true
+  },
+  "sectionRoles": {
+    "sections": [
+      {
+        "index": 0,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 70.5
+        },
+        "buttonCount": 3,
+        "cardCount": 11,
+        "slots": {
+          "ctaCount": 3,
+          "lede": "Research\nPricing\nDocs\nBlog\nProducts\nLogin\nStart Building\nResearch\nPricing\nDocs\nBlog\nPRODUCTS\nConnectors\nMCP\nPlugins\nRAG\nMemory Graph\nPersonal App\nDeveloper Console\nJoin Discord\nStart Building"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 1,
+        "tag": "main",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "The context cloud for \n agents.",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 13487
+        },
+        "buttonCount": 21,
+        "cardCount": 202,
+        "slots": {
+          "heading": "The context cloud for \n agents.",
+          "subheadings": [
+            "All the legos to build the perfect context for your agent.",
+            "Memory & Continual Learning",
+            "",
+            ""
+          ],
+          "ctaCount": 21,
+          "lede": "New\nDynamic dreaming is now default\nThe context cloud for \n agents."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 2,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "The context cloud for \n agents.",
+        "bounds": {
+          "x": 0,
+          "y": 56,
+          "w": 1280,
+          "h": 915.296875
+        },
+        "buttonCount": 1,
+        "cardCount": 26,
+        "slots": {
+          "heading": "The context cloud for \n agents.",
+          "ctaCount": 1,
+          "lede": "New\nDynamic dreaming is now default\nThe context cloud for \n agents."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 3,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Bring your data \n We build understanding. Your agent just knows.",
+        "bounds": {
+          "x": 24,
+          "y": 1926.640625,
+          "w": 1232,
+          "h": 1270.609375
+        },
+        "buttonCount": 0,
+        "cardCount": 20,
+        "slots": {
+          "heading": "Bring your data \n We build understanding. Your agent just knows.",
+          "subheadings": [
+            "The Supermemory API",
+            "Personal Supermemory",
+            "LEGACY · A VECTOR DATABASE",
+            "SUPERMEMORY"
+          ]
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 4,
+        "tag": "section",
+        "role": "testimonials",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "How it works",
+        "bounds": {
+          "x": 24,
+          "y": 3197.25,
+          "w": 1232,
+          "h": 1906.375
+        },
+        "buttonCount": 0,
+        "cardCount": 1,
+        "slots": {
+          "heading": "How it works",
+          "subheadings": [
+            "How it works."
+          ],
+          "lede": "〉HOW IT WORKS\n[3/9]\nHow it works\nHow it works."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 5,
+        "tag": "section",
+        "role": "feature-grid",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "We don't think benchmarks tell the full story.",
+        "bounds": {
+          "x": 24,
+          "y": 5103.625,
+          "w": 1232,
+          "h": 2071.25
+        },
+        "buttonCount": 0,
+        "cardCount": 7,
+        "slots": {
+          "heading": "We don't think benchmarks tell the full story.",
+          "subheadings": [
+            "RECALL QUALITY,\nLIKE THE HUMAN BRAIN.",
+            "RECALL TIME"
+          ],
+          "lede": "〉BENCHMARKS\n[4/9]\nWe don't think benchmarks tell the full story."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 6,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Use cases",
+        "bounds": {
+          "x": 24,
+          "y": 7174.875,
+          "w": 1232,
+          "h": 797.375
+        },
+        "buttonCount": 2,
+        "cardCount": 7,
+        "slots": {
+          "heading": "Use cases",
+          "subheadings": [
+            "Best for latency, quality and cost.\nOr configurable for each use case."
+          ],
+          "ctaCount": 2,
+          "lede": "〉USE CASES\n[5/9]\nUse cases\nBest for latency, quality and cost.\nOr configurable for each use case.\nALL USE CASES ↗\n←\n→\nAI ASSISTANTS\nAI assistants that remember your users."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 7,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "Enterprise",
+        "bounds": {
+          "x": 24,
+          "y": 7972.25,
+          "w": 1232,
+          "h": 943.5625
+        },
+        "buttonCount": 0,
+        "cardCount": 3,
+        "slots": {
+          "heading": "Enterprise",
+          "subheadings": [
+            "Supermemory runs everywhere."
+          ],
+          "lede": "〉ENTERPRISE\n[6/9]\nEnterprise\nSupermemory runs everywhere."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 8,
+        "tag": "section",
+        "role": "comparison",
+        "subrole": null,
+        "confidence": 0.7,
+        "heading": "Testimonials",
+        "bounds": {
+          "x": 24,
+          "y": 8915.8125,
+          "w": 1232,
+          "h": 1851.125
+        },
+        "buttonCount": 0,
+        "cardCount": 3,
+        "slots": {
+          "heading": "Testimonials",
+          "subheadings": [
+            "Memory vs RAG"
+          ],
+          "lede": "〉TESTIMONIALS\n[7/9]\nTestimonials"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 9,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 25,
+          "y": 9977.84375,
+          "w": 1230,
+          "h": 789.09375
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "“Supermemory let us scale usage without losing the thread of every conversation.”"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 10,
+        "tag": "aside",
+        "role": "sidebar",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "Custom",
+        "bounds": {
+          "x": 25,
+          "y": 11751.625,
+          "w": 1230,
+          "h": 336.984375
+        },
+        "buttonCount": 0,
+        "cardCount": 15,
+        "slots": {
+          "heading": "Custom"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 11,
+        "tag": "section",
+        "role": "faq",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "The fine print, in plain English.",
+        "bounds": {
+          "x": 24,
+          "y": 12150.609375,
+          "w": 1232,
+          "h": 870.015625
+        },
+        "buttonCount": 11,
+        "cardCount": 33,
+        "slots": {
+          "heading": "The fine print, in plain English.",
+          "ctaCount": 11,
+          "lede": "〉FAQ\n[9/9]\nFREQUENTLY ASKED QUESTIONS\nThe fine print, in plain English.\nALL\nBILLING\nDEPLOY\nPROGRAMS\n01\nHow does the credit balance work?"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 12,
+        "tag": "footer",
+        "role": "footer",
+        "subrole": null,
+        "confidence": 0.95,
+        "heading": "Context infrastructure\nfor AI agents.",
+        "bounds": {
+          "x": 0,
+          "y": 13487,
+          "w": 1280,
+          "h": 546.234375
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Context infrastructure\nfor AI agents."
+        },
+        "needsSmart": false
+      }
+    ],
+    "counts": {
+      "nav": 1,
+      "testimonial": 4,
+      "content": 2,
+      "testimonials": 1,
+      "feature-grid": 1,
+      "comparison": 1,
+      "sidebar": 1,
+      "faq": 1,
+      "footer": 1
+    },
+    "readingOrder": [
+      "nav",
+      "testimonial",
+      "testimonial",
+      "content",
+      "testimonials",
+      "feature-grid",
+      "content",
+      "testimonial",
+      "comparison",
+      "testimonial",
+      "sidebar",
+      "faq",
+      "footer"
+    ]
+  }
+}

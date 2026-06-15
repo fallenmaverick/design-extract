@@ -39,6 +39,8 @@ import { extractBackgroundPatterns } from './extractors/background-patterns.js';
 import { extractStackIntel } from './extractors/stack-intel.js';
 import { extractFormStates } from './extractors/form-states.js';
 import { formatDtcgTokens } from './formatters/dtcg-tokens.js';
+import { extractIntent } from './twin/intent.js';
+import { extractCognitiveTwins } from './twin/cognitive.js';
 
 function safeExtract(fn, ...args) {
   try { return fn(...args); } catch { return null; }
@@ -146,6 +148,26 @@ export async function extractDesignLanguage(url, options = {}) {
   design.backgroundPatterns = safeExtract(extractBackgroundPatterns, rawData) || { labels: ['plain'], counts: {}, gradientTotals: {}, samples: [] };
   design.stackIntel = safeExtract(extractStackIntel, rawData.light?.stack || {}) || { cms: [], analytics: [], experimentation: [] };
   design.formStates = safeExtract(extractFormStates, rawData, design) || { flags: [], forms: { count: 0, families: [] }, modals: [], toastLibraries: [] };
+  design.intent = safeExtract(extractIntent, rawData.light?.domTree || (rawData.responsive?.viewports && Object.values(rawData.responsive.viewports)[0]?.domTree) || null, design.pageIntent) || { nodes: [], intentRecoveryScore: 0.0, primaryObjective: 'unknown' };
+
+  // Cognitive & Explainability Twins (GoalTwin, JourneyTwin, TrustTwin, EvidenceTwin, Benchmarks)
+  try {
+    const cognitive = extractCognitiveTwins(design);
+    design.goals = cognitive.goals;
+    design.journeys = cognitive.journeys;
+    design.trust = cognitive.trust;
+    design.constraints = cognitive.constraints;
+    design.evidence = cognitive.evidence;
+    design.benchmarks = cognitive.benchmarks;
+  } catch {
+    design.goals = { primaryGoal: 'unknown', secondaryGoals: [], alignments: [] };
+    design.journeys = { funnels: [] };
+    design.trust = { trustScore: 0.0, signals: [], evidence: [] };
+    design.constraints = { constraints: [] };
+    design.evidence = { classifications: {} };
+    design.benchmarks = { ctaDetection: 0, trustDetection: 0, heroDetection: 0, pricingDetection: 0, overallScore: 0 };
+  }
+
   // Stash raw crawler output so downstream orchestration (multipage, smart)
   // can rebuild the digest without re-crawling.
   design._raw = rawData;

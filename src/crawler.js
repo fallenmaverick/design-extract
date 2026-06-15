@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
+import { serializeDOM } from './extractors/dom-serializer.js';
 
 const MAX_ELEMENTS = 5000;
 
@@ -112,6 +113,32 @@ export async function crawlPage(url, options = {}) {
       interactState = await runInteractionPass(page).catch(() => null);
     }
 
+    // Multi-viewport capture for responsive variants
+    const responsiveVariants = {};
+    try {
+      const viewports = [
+        { name: 'desktop', width: 1440, height: 900 },
+        { name: 'tablet_h', width: 1024, height: 768 },
+        { name: 'tablet_v', width: 768, height: 1024 },
+        { name: 'mobile', width: 390, height: 844 },
+      ];
+      for (const vp of viewports) {
+        await page.setViewportSize({ width: vp.width, height: vp.height }).catch(() => {});
+        await page.waitForTimeout(300);
+        const serialized = await serializeDOM(page, selector).catch(() => null);
+        if (serialized) {
+          responsiveVariants[vp.name] = {
+            width: vp.width,
+            height: vp.height,
+            domTree: serialized.domTree,
+            boundingBoxes: serialized.boundingBoxes
+          };
+        }
+      }
+      // Reset to original viewport size
+      await page.setViewportSize({ width, height }).catch(() => {});
+    } catch { /* ignore */ }
+
     const lightData = await extractPageData(page, ignore, selector);
     lightData.cssCoverage = cssCoverage;
     if (interactState) lightData.interactState = interactState;
@@ -196,6 +223,7 @@ export async function crawlPage(url, options = {}) {
       light: lightData,
       dark: darkData,
       interactState,
+      responsiveVariants,
       routes: routes.length > 0 ? routes : undefined,
       pagesAnalyzed: 1 + additionalPages.length,
       componentScreenshots,
@@ -293,8 +321,11 @@ async function runInteractionPass(page) {
     scrollSettled: false,
     menusOpened: 0,
     hoverSamples: [],
+    focusSamples: [],
+    activeSamples: [],
     accordionsOpened: 0,
     modals: [],
+    interactionGraph: {}
   };
 
   // 1) Full-page scroll in 4 steps to trigger lazy-load + scroll-linked animations
@@ -312,19 +343,8 @@ async function runInteractionPass(page) {
     state.scrollSettled = true;
   } catch { /* ignore */ }
 
-  // 2) Open menus / dropdowns
-  try {
-    const triggers = await page.$$('nav [aria-haspopup], [aria-expanded="false"], .menu-toggle, .hamburger, [data-menu]');
-    for (const t of triggers.slice(0, 5)) {
-      try {
-        await t.click({ timeout: 1000, trial: false });
-        state.menusOpened++;
-      } catch { /* ignore */ }
-    }
-    await page.waitForTimeout(400);
-  } catch { /* ignore */ }
-
-  // 3) Hover up to 6 buttons + 6 links with style diffs
+  // 2) Collect interactive elements
+  let samples = [];
   try {
     const btnSelectors = await page.evaluate(() => {
       const arr = [];
@@ -338,20 +358,95 @@ async function runInteractionPass(page) {
       links.forEach((el, i) => arr.push(`a[href]:nth-of-type(${i + 1})`));
       return arr;
     });
-    const samples = [...(btnSelectors || []), ...(linkSelectors || [])].slice(0, 12);
-    for (const sel of samples) {
-      const before = await snapshotSelector(page, sel);
-      if (!before) continue;
-      try {
-        await page.hover(sel, { timeout: 500 });
-        await page.waitForTimeout(100);
-        const after = await snapshotSelector(page, sel);
-        if (after) state.hoverSamples.push({ selector: sel, before, after });
-      } catch { /* ignore */ }
-    }
+    samples = [...(btnSelectors || []), ...(linkSelectors || [])].slice(0, 10);
   } catch { /* ignore */ }
 
-  // 4) Accordions / details
+  // helper function to compute deltas
+  function computeDelta(before, after) {
+    if (!before || !after) return null;
+    const delta = {};
+    let changed = false;
+    for (const key of Object.keys(after)) {
+      if (before[key] !== after[key]) {
+        delta[key] = after[key];
+        changed = true;
+      }
+    }
+    return changed ? delta : null;
+  }
+
+  // 3) Measure states (Hover, Focus, Active)
+  for (const sel of samples) {
+    const before = await snapshotSelector(page, sel);
+    if (!before) continue;
+
+    state.interactionGraph[sel] = {};
+
+    // HOVER
+    try {
+      await page.hover(sel, { timeout: 500 });
+      await page.waitForTimeout(100);
+      const hover = await snapshotSelector(page, sel);
+      const delta = computeDelta(before, hover);
+      if (delta) {
+        state.interactionGraph[sel].hover = delta;
+        state.hoverSamples.push({ selector: sel, before, after: hover });
+      }
+      // Move mouse away to reset hover state
+      await page.mouse.move(0, 0);
+      await page.waitForTimeout(100);
+    } catch { /* ignore */ }
+
+    // FOCUS
+    try {
+      await page.focus(sel, { timeout: 500 });
+      await page.waitForTimeout(100);
+      const focus = await snapshotSelector(page, sel);
+      const delta = computeDelta(before, focus);
+      if (delta) {
+        state.interactionGraph[sel].focus = delta;
+        state.focusSamples.push({ selector: sel, before, after: focus });
+      }
+      // Blur element
+      await page.evaluate((selector) => {
+        const el = document.querySelector(selector);
+        if (el) el.blur();
+      }, sel);
+      await page.waitForTimeout(100);
+    } catch { /* ignore */ }
+
+    // ACTIVE/CLICK (MouseDown)
+    try {
+      const box = await page.locator(sel).boundingBox();
+      if (box) {
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await page.mouse.down();
+        await page.waitForTimeout(100);
+        const active = await snapshotSelector(page, sel);
+        const delta = computeDelta(before, active);
+        if (delta) {
+          state.interactionGraph[sel].active = delta;
+          state.activeSamples.push({ selector: sel, before, after: active });
+        }
+        await page.mouse.up();
+        await page.waitForTimeout(100);
+      }
+    } catch { /* ignore */ }
+  }
+
+  // 4) Open menus / dropdowns
+  try {
+    const triggers = await page.$$('nav [aria-haspopup], [aria-expanded="false"], .menu-toggle, .hamburger, [data-menu]');
+    for (const t of triggers.slice(0, 5)) {
+      try {
+        await t.click({ timeout: 1000, trial: false });
+        state.menusOpened++;
+      } catch { /* ignore */ }
+    }
+    await page.waitForTimeout(400);
+  } catch { /* ignore */ }
+
+  // 5) Accordions / details
   try {
     const accs = await page.$$('details, [role="tab"], [data-accordion]');
     for (const a of accs.slice(0, 6)) {
@@ -363,7 +458,7 @@ async function runInteractionPass(page) {
     await page.waitForTimeout(200);
   } catch { /* ignore */ }
 
-  // 5) First triggerable modal / dialog
+  // 6) First triggerable modal / dialog
   try {
     const candidates = await page.$$('button, a[role="button"]');
     let triggered = false;

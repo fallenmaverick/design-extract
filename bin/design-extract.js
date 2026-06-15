@@ -42,6 +42,7 @@ import { captureInteractions } from '../src/extractors/interactions.js';
 import { syncDesign } from '../src/sync.js';
 import { compareBrands, formatBrandMatrix, formatBrandMatrixHtml } from '../src/multibrand.js';
 import { generateClone } from '../src/clone.js';
+import { replicateSite } from '../src/replicator.js';
 import { watchSite } from '../src/watch.js';
 import { applyDesign } from '../src/apply.js';
 import { formatGrade, formatGradeMarkdown } from '../src/formatters/grade.js';
@@ -609,6 +610,22 @@ program
           console.log(`  ${chalk.gray('A11y:')} ${scoreColor(`${a.score}% WCAG score`)} (${a.failCount} failing pairs)`);
         }
 
+        if (design.goals && Array.isArray(design.goals.goals) && design.goals.goals.length > 0) {
+          console.log(`  ${chalk.gray('Primary Goal:')} ${chalk.cyan(design.goals.goals[0].goal)} (weight: ${design.goals.goals[0].weight.toFixed(2)})`);
+        }
+        if (design.trust) {
+          const t = design.trust;
+          const bd = t.breakdown || {};
+          console.log(`  ${chalk.gray('Trust Score:')} ${chalk.green((t.trustScore * 100).toFixed(0))}% (Social: ${Math.round(bd.socialProof*100)}%, Sec: ${Math.round(bd.security*100)}%, Case: ${Math.round(bd.caseStudies*100)}%, Logos: ${Math.round(bd.customerLogos*100)}%)`);
+        }
+        if (design.constraints && Array.isArray(design.constraints.constraints)) {
+          console.log(`  ${chalk.gray('Constraints:')} ${chalk.yellow(design.constraints.constraints.join(', '))}`);
+        }
+        if (design.benchmarks) {
+          const b = design.benchmarks;
+          console.log(`  ${chalk.gray('Recovery Score:')} ${chalk.green((b.overallScore * 100).toFixed(1))}% (Intent: ${Math.round(b.intentRecovery*100)}%, Goal: ${Math.round(b.goalRecovery*100)}%, Journey: ${Math.round(b.journeyRecovery*100)}%, Trust: ${Math.round(b.trustRecovery*100)}%)`);
+        }
+
         console.log(chalk.gray(`  Completed in ${duration}s`));
         console.log('');
       }
@@ -829,6 +846,74 @@ program
 
     } catch (err) {
       spinner.fail('Clone failed');
+      console.error(chalk.red(`\n  ${err.message}\n`));
+      process.exit(1);
+    }
+  });
+
+// ── Replicate command ───────────────────────────────────────
+program
+  .command('replicate <url>')
+  .description('Run closed-loop replication with visual diffing and self-healing')
+  .option('-o, --out <dir>', 'output directory', './cloned-design')
+  .option('--precision', 'enable high-precision repair loop', false)
+  .option('--evolve', 'enable evolutionary counterfactual mutations', false)
+  .action(async (url, opts) => {
+    if (!url.startsWith('http')) url = `https://${url}`;
+    validateUrl(url);
+
+    console.log('');
+    console.log(chalk.bold('  designlang replicate'));
+    console.log(chalk.gray(`  ${url}`));
+    console.log('');
+
+    const spinner = ora('Initializing Sovereign ∞ Replicator...').start();
+
+    try {
+      const outDir = opts.out && opts.out !== './cloned-design' 
+        ? opts.out 
+        : (program.opts().out && program.opts().out !== './design-extract-output' ? program.opts().out : './cloned-design');
+
+      const result = await replicateSite(url, {
+        outDir,
+        maxIterations: opts.precision ? 5 : 3,
+        targetSimilarity: 0.98
+      });
+
+      spinner.succeed('Replication complete!');
+      console.log('');
+      console.log(`  ${chalk.gray('Initial Similarity:')} ${(result.initialSimilarity * 100).toFixed(2)}%`);
+      console.log(`  ${chalk.gray('Final Similarity:')} ${(result.finalSimilarity * 100).toFixed(2)}%`);
+      console.log(`  ${chalk.gray('Iterations Run:')} ${result.iterations}`);
+      
+      if (result.goals && Array.isArray(result.goals.goals) && result.goals.goals.length > 0) {
+        console.log(`  ${chalk.gray('Primary Business Goal:')} ${chalk.cyan(result.goals.goals[0].goal)} (weight: ${result.goals.goals[0].weight.toFixed(2)})`);
+      }
+      if (result.trust) {
+        const t = result.trust;
+        const bd = t.breakdown || {};
+        console.log(`  ${chalk.gray('Trust Architecture Score:')} ${chalk.green((t.trustScore * 100).toFixed(0))}% (Social: ${Math.round(bd.socialProof*100)}%, Sec: ${Math.round(bd.security*100)}%, Case: ${Math.round(bd.caseStudies*100)}%, Logos: ${Math.round(bd.customerLogos*100)}%)`);
+      }
+      if (result.constraints && Array.isArray(result.constraints.constraints)) {
+        console.log(`  ${chalk.gray('Constraints:')} ${chalk.yellow(result.constraints.constraints.join(', '))}`);
+      }
+      if (result.benchmarks) {
+        const b = result.benchmarks;
+        console.log(`  ${chalk.gray('Recovery Score:')} ${chalk.green((b.overallScore * 100).toFixed(1))}% (Intent: ${Math.round(b.intentRecovery*100)}%, Goal: ${Math.round(b.goalRecovery*100)}%, Journey: ${Math.round(b.journeyRecovery*100)}%, Trust: ${Math.round(b.trustRecovery*100)}%)`);
+      }
+      console.log('');
+      
+      console.log(chalk.bold('  Generated files:'));
+      for (const f of result.files) {
+        console.log(`  ${chalk.green('✓')} ${chalk.cyan(f)}`);
+      }
+      console.log('');
+      console.log(chalk.bold('  To run:'));
+      console.log(chalk.gray(`  cd ${result.outDir} && npm install && npm run dev`));
+      console.log('');
+
+    } catch (err) {
+      spinner.fail('Replication failed');
       console.error(chalk.red(`\n  ${err.message}\n`));
       process.exit(1);
     }
